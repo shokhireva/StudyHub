@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "R0LglqWBnOg=",
+  "success": true,
+  "projectFilePath": "/Users/sergey/Desktop/StudyHub/src-dotnet/StudyHub.API/StudyHub.API.csproj",
+  "expectedPackageFiles": [
+    "/Users/sergey/.nuget/packages/microsoft.aspnetcore.openapi/9.0.14/microsoft.aspnetcore.openapi.9.0.14.nupkg.sha512",
+    "/Users/sergey/.nuget/packages/microsoft.openapi/1.6.17/microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}

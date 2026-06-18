@@ -1,0 +1,16 @@
+/Users/sergey/Desktop/StudyHub/src-dotnet/StudyHub.Application/bin/Debug/net9.0/StudyHub.Application.deps.json
+/Users/sergey/Desktop/StudyHub/src-dotnet/StudyHub.Application/bin/Debug/net9.0/StudyHub.Application.dll
+/Users/sergey/Desktop/StudyHub/src-dotnet/StudyHub.Application/bin/Debug/net9.0/StudyHub.Application.pdb
+/Users/sergey/Desktop/StudyHub/src-dotnet/StudyHub.Application/bin/Debug/net9.0/StudyHub.Domain.dll
+/Users/sergey/Desktop/StudyHub/src-dotnet/StudyHub.Application/bin/Debug/net9.0/StudyHub.Domain.pdb
+/Users/sergey/Desktop/StudyHub/src-dotnet/StudyHub.Application/obj/Debug/net9.0/StudyHub.Application.csproj.AssemblyReference.cache
+/Users/sergey/Desktop/StudyHub/src-dotnet/StudyHub.Application/obj/Debug/net9.0/StudyHub.Application.GeneratedMSBuildEditorConfig.editorconfig
+/Users/sergey/Desktop/StudyHub/src-dotnet/StudyHub.Application/obj/Debug/net9.0/StudyHub.Application.AssemblyInfoInputs.cache
+/Users/sergey/Desktop/StudyHub/src-dotnet/StudyHub.Application/obj/Debug/net9.0/StudyHub.Application.AssemblyInfo.cs
+/Users/sergey/Desktop/StudyHub/src-dotnet/StudyHub.Application/obj/Debug/net9.0/StudyHub.Application.csproj.CoreCompileInputs.cache
+/Users/sergey/Desktop/StudyHub/src-dotnet/StudyHub.Application/obj/Debug/net9.0/StudyHub.Application.sourcelink.json
+/Users/sergey/Desktop/StudyHub/src-dotnet/StudyHub.Application/obj/Debug/net9.0/StudyHub.D57D9D3C.Up2Date
+/Users/sergey/Desktop/StudyHub/src-dotnet/StudyHub.Application/obj/Debug/net9.0/StudyHub.Application.dll
+/Users/sergey/Desktop/StudyHub/src-dotnet/StudyHub.Application/obj/Debug/net9.0/refint/StudyHub.Application.dll
+/Users/sergey/Desktop/StudyHub/src-dotnet/StudyHub.Application/obj/Debug/net9.0/StudyHub.Application.pdb
+/Users/sergey/Desktop/StudyHub/src-dotnet/StudyHub.Application/obj/Debug/net9.0/ref/StudyHub.Application.dll
