@@ -16,7 +16,7 @@ public class GroupService : IGroupService
 
     public async Task<IEnumerable<GroupResponseDto>> GetAllGroupsAsync()
     {
-        var groups = await _groupRepository.GetAllAsync();
+        IEnumerable<Group> groups = await _groupRepository.GetAllAsync();
         return groups.Select(g => new GroupResponseDto
         {
             Id = g.Id,
@@ -27,7 +27,7 @@ public class GroupService : IGroupService
 
     public async Task<GroupResponseDto?> GetGroupByIdAsync(int id)
     {
-        var group = await _groupRepository.GetByIdAsync(id);
+        Group? group = await _groupRepository.GetByIdAsync(id);
         if (group == null) return null;
         return new GroupResponseDto
         {
@@ -39,7 +39,7 @@ public class GroupService : IGroupService
 
     public async Task<GroupResponseDto> CreateGroupAsync(CreateGroupDto dto)
     {
-        var group = new Group
+        Group group = new Group
         {
             Name = dto.Name,
             Description = dto.Description
@@ -56,7 +56,7 @@ public class GroupService : IGroupService
 
     public async Task<GroupResponseDto?> UpdateGroupAsync(int id, UpdateGroupDto dto)
     {
-        var group = await _groupRepository.GetByIdAsync(id);
+        Group? group = await _groupRepository.GetByIdAsync(id);
         if (group == null) return null;
         group.Name = dto.Name;
         group.Description = dto.Description;
@@ -72,7 +72,7 @@ public class GroupService : IGroupService
 
     public async Task<bool> DeleteGroupAsync(int id)
     {
-        var group = await _groupRepository.GetByIdAsync(id);
+        Group? group = await _groupRepository.GetByIdAsync(id);
         if (group == null) return false;
         _groupRepository.Delete(group);
         await _groupRepository.SaveChangesAsync();
