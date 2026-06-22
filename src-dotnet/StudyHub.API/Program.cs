@@ -7,6 +7,11 @@ using StudyHub.Infrastructure.Repositories;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString =
+    builder.Configuration.GetConnectionString("DefaultConnection");
+
+Console.WriteLine($"Connection string: {connectionString}");
+
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
