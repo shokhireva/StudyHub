@@ -19,14 +19,14 @@ public class GroupsController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<GroupResponseDto>>> GetAll()
     {
-        var groups = await _groupService.GetAllGroupsAsync();
+        IEnumerable<GroupResponseDto> groups = await _groupService.GetAllGroupsAsync();
         return Ok(groups);
     }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<GroupResponseDto>> GetById(int id)
     {
-        var group = await _groupService.GetGroupByIdAsync(id);
+        GroupResponseDto? group = await _groupService.GetGroupByIdAsync(id);
         if (group == null)
             return NotFound(new ErrorResponse { Message = GroupMessages.NotFound });
         return Ok(group);
@@ -37,14 +37,14 @@ public class GroupsController : ControllerBase
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
-        var created = await _groupService.CreateGroupAsync(dto);
+        GroupResponseDto created = await _groupService.CreateGroupAsync(dto);
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
 
     [HttpPut("{id}")]
     public async Task<ActionResult<GroupResponseDto>> Update(int id, [FromBody] UpdateGroupDto dto)
     {
-        var updated = await _groupService.UpdateGroupAsync(id, dto);
+        GroupResponseDto? updated = await _groupService.UpdateGroupAsync(id, dto);
         if (updated == null)
             return NotFound(new ErrorResponse { Message = GroupMessages.NotFound });
         return Ok(updated);
@@ -53,7 +53,7 @@ public class GroupsController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var deleted = await _groupService.DeleteGroupAsync(id);
+        bool deleted = await _groupService.DeleteGroupAsync(id);
         if (!deleted)
             return NotFound(new ErrorResponse { Message = GroupMessages.NotFound });
         return NoContent();
