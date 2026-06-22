@@ -1,35 +1,29 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using StudyHub.Application.Constants;
 using StudyHub.Application.DTOs;
-using StudyHub.Infrastructure.Data;
+using StudyHub.Application.Interfaces;
 
 namespace StudyHub.API.Controllers;
 
 [ApiController]
-[Route("api/students")]
+[Route("api/auth")]
 public class AuthController : ControllerBase
 {
-    private readonly AppDbContext _db;
+    private readonly IAuthService _authService;
 
-    public AuthController(AppDbContext db)
+    public AuthController(IAuthService authService)
     {
-        _db = db;
+        _authService = authService;
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginRequest request)
+    public async Task<ActionResult<UserResponse>> Login([FromBody] LoginRequest request)
     {
-        var user = await _db.Users
-            .FirstOrDefaultAsync(u => u.Login == request.Login);
-
-        if (user == null || user.PasswordHash != request.Password)
-            return Unauthorized(new { message = "Неверный логин или пароль" });
-
-        return Ok(new UserResponse
+        var result = await _authService.LoginAsync(request.Login, request.Password);
+        if (result == null)
         {
-            Id = user.Id,
-            FullName = user.FullName,
-            Role = user.Role
-        });
+            return Unauthorized(new ErrorResponse { Message = AuthMessages.InvalidCredentials });
+        }
+        return Ok(result);
     }
 }

@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using StudyHub.Infrastructure.Data;
+using StudyHub.Application.Interfaces;
+using StudyHub.Application.Services;
+using StudyHub.Domain.Interfaces;
+using StudyHub.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +21,8 @@ builder.Services.AddCors(options =>
         policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
     });
 });
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
 
