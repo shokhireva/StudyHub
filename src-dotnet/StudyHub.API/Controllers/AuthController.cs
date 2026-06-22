@@ -19,7 +19,7 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     public async Task<ActionResult<UserResponse>> Login([FromBody] LoginRequest request)
     {
-        var result = await _authService.LoginAsync(request.Login, request.Password);
+        UserResponse? result = await _authService.LoginAsync(request.Login, request.Password);
         if (result == null)
         {
             return Unauthorized(new ErrorResponse { Message = AuthMessages.InvalidCredentials });

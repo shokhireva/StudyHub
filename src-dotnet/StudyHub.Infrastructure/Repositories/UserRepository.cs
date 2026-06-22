@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using StudyHub.Domain.Entities;
-using StudyHub.Domain.Interfaces;
 using StudyHub.Infrastructure.Data;
+using StudyHub.Infrastructure.Entities;
+using StudyHub.Infrastructure.Interfaces;
 
 namespace StudyHub.Infrastructure.Repositories;
 

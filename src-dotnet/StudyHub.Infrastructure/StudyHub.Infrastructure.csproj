@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\StudyHub.Application\StudyHub.Application.csproj" />
     <ProjectReference Include="..\StudyHub.Domain\StudyHub.Domain.csproj" />
   </ItemGroup>
 

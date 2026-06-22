@@ -1,6 +1,7 @@
 using StudyHub.Application.DTOs;
 using StudyHub.Application.Interfaces;
-using StudyHub.Domain.Interfaces;
+using StudyHub.Infrastructure.Entities;
+using StudyHub.Infrastructure.Interfaces;
 
 namespace StudyHub.Application.Services;
 
@@ -15,7 +16,7 @@ public class AuthService : IAuthService
 
     public async Task<UserResponse?> LoginAsync(string login, string password)
     {
-        var user = await _userRepository.GetByLoginAsync(login);
+        User? user = await _userRepository.GetByLoginAsync(login);
         if (user == null || user.PasswordHash != password)
             return null;
 

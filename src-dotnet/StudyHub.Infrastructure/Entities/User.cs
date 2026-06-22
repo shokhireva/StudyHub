@@ -1,6 +1,6 @@
 using StudyHub.Domain.Enums;
 
-namespace StudyHub.Domain.Entities;
+namespace StudyHub.Infrastructure.Entities;
 
 public class User
 {

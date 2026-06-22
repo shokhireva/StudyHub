@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using StudyHub.Infrastructure.Data;
 using StudyHub.Application.Interfaces;
 using StudyHub.Application.Services;
-using StudyHub.Domain.Interfaces;
+using StudyHub.Infrastructure.Data;
+using StudyHub.Infrastructure.Interfaces;
 using StudyHub.Infrastructure.Repositories;
 using System.Text.Json.Serialization;
 
