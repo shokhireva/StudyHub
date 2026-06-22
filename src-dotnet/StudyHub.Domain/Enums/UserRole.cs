@@ -1,7 +1,12 @@
+using System.Runtime.Serialization;
+
 namespace StudyHub.Domain.Enums;
 
 public enum UserRole
 {
-    Teacher,
-    Student
+    [EnumMember(Value = "Преподаватель")]
+    Teacher = 1,
+    
+    [EnumMember(Value = "Студент")]
+    Student = 2
 }
