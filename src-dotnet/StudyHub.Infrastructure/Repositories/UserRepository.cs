@@ -18,4 +18,7 @@ public class UserRepository : IUserRepository
     {
         return await _context.Users.FirstOrDefaultAsync(u => u.Login == login);
     }
+
+    public async Task SaveChangesAsync()
+        => await _context.SaveChangesAsync();
 }

@@ -6,7 +6,12 @@ using StudyHub.Infrastructure.Interfaces;
 using StudyHub.Infrastructure.Repositories;
 using System.Text.Json.Serialization;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+string? connectionString =
+    builder.Configuration.GetConnectionString("DefaultConnection");
+
+Console.WriteLine($"Connection string: {connectionString}");
+
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -27,8 +32,10 @@ builder.Services.AddCors(options =>
 });
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IGroupRepository, GroupRepository>();
+builder.Services.AddScoped<IGroupService, GroupService>();
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
@@ -40,9 +47,9 @@ app.UseCors("AllowAll");
 app.UseAuthorization();
 app.MapControllers();
 
-using (var scope = app.Services.CreateScope())
+using (IServiceScope scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    AppDbContext db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.EnsureCreated();
 }
 
