@@ -3,7 +3,7 @@ const AUTH_KEY = 'user';
 export interface User {
     id: number;
     fullName: string;
-    role: 'teacher' | 'student';
+    role: 'Teacher' | 'Student';
 }
 
 export const authStorage = {
