@@ -2,6 +2,8 @@ using StudyHub.Application.DTOs;
 using StudyHub.Application.Interfaces;
 using StudyHub.Infrastructure.Entities;
 using StudyHub.Infrastructure.Interfaces;
+using StudyHub.Application.Helpers;
+using StudyHub.Domain.Enums;
 
 namespace StudyHub.Application.Services;
 
@@ -27,4 +29,25 @@ public class AuthService : IAuthService
             Role = user.Role
         };
     }
+
+    public async Task<bool> RegisterAsync(RegisterRequest request)
+{
+    var existingUser = await _userRepository.GetByLoginAsync(request.Login);
+    if (existingUser != null)
+        return false;
+
+    var user = new User
+    {
+        FirstName = request.FirstName,
+        LastName = request.LastName,
+        Login = request.Login,
+        PasswordHash = PasswordHelper.HashPassword(request.Password),
+        Role = UserRole.Student,
+        GroupId = null
+    };
+
+    await _userRepository.AddAsync(user);
+    await _userRepository.SaveChangesAsync();
+    return true;
+}
 }
