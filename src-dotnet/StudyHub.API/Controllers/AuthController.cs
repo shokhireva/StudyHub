@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using StudyHub.Application.Constants;
 using StudyHub.Application.DTOs;
 using StudyHub.Application.Interfaces;
+using StudyHub.Application.Constants;
 
 namespace StudyHub.API.Controllers;
 
@@ -32,8 +33,8 @@ public class AuthController : ControllerBase
     {
         bool result = await _authService.RegisterAsync(request);
         if (!result)
-            return BadRequest(new ErrorResponse { Message = "Пользователь с таким логином уже существует" });
+            return BadRequest(new ErrorResponse { Message = RegistrationMessages.LoginAlreadyExists });
 
-        return Ok(new { message = "Регистрация успешна" });
+        return Ok(new { message = AuthMessages.RegistrationSuccess });
     }
 }
