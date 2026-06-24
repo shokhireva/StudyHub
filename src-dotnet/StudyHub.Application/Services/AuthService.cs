@@ -16,10 +16,14 @@ public class AuthService : IAuthService
         _userRepository = userRepository;
     }
 
-    public async Task<UserResponse?> LoginAsync(string login, string password)
+   public async Task<UserResponse?> LoginAsync(string login, string password)
     {
         User? user = await _userRepository.GetByLoginAsync(login);
-        if (user == null || user.PasswordHash != password)
+        if (user == null)
+            return null;
+
+        string hashedPassword = PasswordHelper.HashPassword(password);
+        if (user.PasswordHash != hashedPassword)
             return null;
 
         return new UserResponse
