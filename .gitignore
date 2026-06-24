@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 studyhub.db
 *.db
+*.db-shm
+*.db-wal
