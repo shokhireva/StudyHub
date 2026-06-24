@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using StudyHub.Domain.Enums;
 using StudyHub.Infrastructure.Data;
 using StudyHub.Infrastructure.Entities;
 using StudyHub.Infrastructure.Interfaces;
@@ -12,6 +13,19 @@ public class UserRepository : BaseRepository, IUserRepository
     public async Task<User?> GetByLoginAsync(string login)
     {
         return await _context.Users.FirstOrDefaultAsync(u => u.Login == login);
+    }
+
+    public async Task<IEnumerable<User>> GetStudentsAsync(int? groupId = null)
+    {
+        IQueryable<User> query = _context.Users.Where(u => u.Role == UserRole.Student);
+        if (groupId.HasValue)
+            query = query.Where(u => u.GroupId == groupId.Value);
+        return await query.ToListAsync();
+    }
+
+    public async Task<User?> GetByIdAsync(int id)
+    {
+        return await _context.Users.FindAsync(id);
     }
 
     public async Task AddAsync(User user)
