@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using StudyHub.Application.Constants;
 using StudyHub.Application.DTOs;
 using StudyHub.Application.Interfaces;
-using StudyHub.Application.Constants;
 
 namespace StudyHub.API.Controllers;
 
@@ -35,6 +34,6 @@ public class AuthController : ControllerBase
         if (!result)
             return BadRequest(new ErrorResponse { Message = RegistrationMessages.LoginAlreadyExists });
 
-        return Ok(new { message = AuthMessages.RegistrationSuccess });
+        return Ok(new { message = RegistrationMessages.RegistrationSuccess });
     }   
 }
