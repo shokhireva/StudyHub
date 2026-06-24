@@ -26,4 +26,14 @@ public class AuthController : ControllerBase
         }
         return Ok(result);
     }
+
+    [HttpPost("register")]
+    public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+    {
+        bool result = await _authService.RegisterAsync(request);
+        if (!result)
+            return BadRequest(new ErrorResponse { Message = "Пользователь с таким логином уже существует" });
+
+        return Ok(new { message = "Регистрация успешна" });
+    }
 }
