@@ -5,14 +5,9 @@ using StudyHub.Infrastructure.Interfaces;
 
 namespace StudyHub.Infrastructure.Repositories;
 
-public class UserRepository : IUserRepository
+public class UserRepository : BaseRepository, IUserRepository
 {
-    private readonly AppDbContext _context;
-
-    public UserRepository(AppDbContext context)
-    {
-        _context = context;
-    }
+    public UserRepository(AppDbContext context) : base(context) { }
 
     public async Task<User?> GetByLoginAsync(string login)
     {

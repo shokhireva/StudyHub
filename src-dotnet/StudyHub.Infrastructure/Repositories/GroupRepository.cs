@@ -5,33 +5,42 @@ using StudyHub.Infrastructure.Interfaces;
 
 namespace StudyHub.Infrastructure.Repositories;
 
-public class GroupRepository : IGroupRepository
+public class GroupRepository : BaseRepository, IGroupRepository
 {
-    private readonly AppDbContext _context;
-
-    public GroupRepository(AppDbContext context)
-    {
-        _context = context;
-    }
+    public GroupRepository(AppDbContext context) : base(context) { }
 
     public async Task<IEnumerable<Group>> GetAllAsync()
-        => await _context.Groups.ToListAsync();
+    {
+        return await _context.Groups.ToListAsync();
+    }
 
     public async Task<Group?> GetByIdAsync(int id)
-        => await _context.Groups.FindAsync(id);
+    {
+        return await _context.Groups.FindAsync(id);
+    }
 
     public async Task AddAsync(Group group)
-        => await _context.Groups.AddAsync(group);
+    {
+        await _context.Groups.AddAsync(group);
+    }
 
     public void Update(Group group)
-        => _context.Groups.Update(group);
+    {
+        _context.Groups.Update(group);
+    }
 
     public void Delete(Group group)
-        => _context.Groups.Remove(group);
+    {
+        _context.Groups.Remove(group);
+    }
 
     public async Task<bool> ExistsAsync(int id)
-        => await _context.Groups.AnyAsync(g => g.Id == id);
+    {
+        return await _context.Groups.AnyAsync(g => g.Id == id);
+    }
 
     public async Task SaveChangesAsync()
-        => await _context.SaveChangesAsync();
+    {
+        await _context.SaveChangesAsync();
+    }
 }
