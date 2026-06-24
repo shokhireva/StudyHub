@@ -36,5 +36,5 @@ public class AuthController : ControllerBase
             return BadRequest(new ErrorResponse { Message = RegistrationMessages.LoginAlreadyExists });
 
         return Ok(new { message = AuthMessages.RegistrationSuccess });
-    }
+    }   
 }

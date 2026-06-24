@@ -1,7 +1,6 @@
 namespace StudyHub.Application.Constants;
 
-public static class AuthMessages
+public static class RegistrationMessages
 {
-    public const string InvalidCredentials = "Неверный логин или пароль";
-    public const string RegistrationSuccess = "Регистрация успешна";
+    public const string LoginAlreadyExists = "Пользователь с таким логином уже существует";
 }
