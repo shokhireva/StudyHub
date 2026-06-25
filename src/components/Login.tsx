@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { authStorage } from '../auth/authStorage';
+import { MESSAGES } from '../constants/messages';
 
 export const Login: React.FC = () => {
     const [login, setLogin] = useState('');
@@ -23,7 +24,7 @@ export const Login: React.FC = () => {
             const user = await response.json();
 
             if (!response.ok) {
-                throw new Error(user.message || 'Ошибка входа');
+                throw new Error(user.message || MESSAGES.errors.loginFailed);
             }
 
             authStorage.setUser(user);
@@ -36,20 +37,20 @@ export const Login: React.FC = () => {
                     navigate('/user');
                     break;
                 default:
-                    throw new Error('Неизвестная роль пользователя');
+                    throw new Error(MESSAGES.errors.unknownRole);
             }
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Произошла ошибка');
+            setError(err instanceof Error ? err.message : MESSAGES.errors.unknown);
         }
     };
 
     return (
         <div className="app-container">
-            <div className="card" style={{ maxWidth: 400 }}>
-                <h2>Вход в StudyHub</h2>
+            <div className="card card-narrow">
+                <h2>{MESSAGES.titles.login}</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label>Логин</label>
+                        <label>{MESSAGES.placeholders.login}</label>
                         <input
                             type="text"
                             value={login}
@@ -58,7 +59,7 @@ export const Login: React.FC = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Пароль</label>
+                        <label>{MESSAGES.placeholders.password}</label>
                         <div className="password-wrapper">
                             <input
                                 type={showPassword ? 'text' : 'password'}
@@ -75,13 +76,13 @@ export const Login: React.FC = () => {
                             </button>
                         </div>
                     </div>
-                    <button type="submit" className="btn-primary" style={{ width: '100%' }}>
-                        Войти
+                    <button type="submit" className="btn-primary btn-full-width">
+                        {MESSAGES.labels.login}
                     </button>
                     {error && <p className="error-message">{error}</p>}
                 </form>
                 <p className="auth-link">
-                    Нет аккаунта? <Link to="/register">Зарегистрироваться</Link>
+                    Нет аккаунта? <Link to="/register">{MESSAGES.labels.register}</Link>
                 </p>
             </div>
         </div>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { MESSAGES } from '../constants/messages';
 
 export const Register: React.FC = () => {
     const [firstName, setFirstName] = useState('');
@@ -19,11 +20,11 @@ export const Register: React.FC = () => {
         setSuccess(false);
 
         if (password !== confirmPassword) {
-            setError('Пароли не совпадают');
+            setError(MESSAGES.errors.passwordMismatch);
             return;
         }
         if (password.length < 6) {
-            setError('Пароль должен содержать минимум 6 символов');
+            setError(MESSAGES.errors.passwordTooShort);
             return;
         }
 
@@ -36,7 +37,7 @@ export const Register: React.FC = () => {
 
             if (!response.ok) {
                 const data = await response.json();
-                throw new Error(data.message || 'Ошибка регистрации');
+                throw new Error(data.message || MESSAGES.errors.registerFailed);
             }
 
             setSuccess(true);
@@ -48,11 +49,11 @@ export const Register: React.FC = () => {
 
     return (
         <div className="app-container">
-            <div className="card" style={{ maxWidth: 400 }}>
-                <h2>Регистрация</h2>
+            <div className="card card-narrow">
+                <h2>{MESSAGES.titles.register}</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label>Имя</label>
+                        <label>{MESSAGES.placeholders.firstName}</label>
                         <input
                             type="text"
                             value={firstName}
@@ -61,7 +62,7 @@ export const Register: React.FC = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Фамилия</label>
+                        <label>{MESSAGES.placeholders.lastName}</label>
                         <input
                             type="text"
                             value={lastName}
@@ -70,7 +71,7 @@ export const Register: React.FC = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Логин</label>
+                        <label>{MESSAGES.placeholders.login}</label>
                         <input
                             type="text"
                             value={login}
@@ -79,7 +80,7 @@ export const Register: React.FC = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Пароль</label>
+                        <label>{MESSAGES.placeholders.password}</label>
                         <div className="password-wrapper">
                             <input
                                 type={showPassword ? 'text' : 'password'}
@@ -97,7 +98,7 @@ export const Register: React.FC = () => {
                         </div>
                     </div>
                     <div className="form-group">
-                        <label>Подтверждение пароля</label>
+                        <label>{MESSAGES.placeholders.confirmPassword}</label>
                         <div className="password-wrapper">
                             <input
                                 type={showConfirmPassword ? 'text' : 'password'}
@@ -114,14 +115,14 @@ export const Register: React.FC = () => {
                             </button>
                         </div>
                     </div>
-                    <button type="submit" className="btn-primary" style={{ width: '100%' }}>
-                        Зарегистрироваться
+                    <button type="submit" className="btn-primary btn-full-width">
+                        {MESSAGES.labels.register}
                     </button>
                     {error && <p className="error-message">{error}</p>}
-                    {success && <p className="success-message">Регистрация успешна! Перенаправление...</p>}
+                    {success && <p className="success-message">{MESSAGES.success.registrationSuccess}</p>}
                 </form>
                 <p className="auth-link">
-                    Уже есть аккаунт? <Link to="/login">Войти</Link>
+                    Уже есть аккаунт? <Link to="/login">{MESSAGES.labels.login}</Link>
                 </p>
             </div>
         </div>
