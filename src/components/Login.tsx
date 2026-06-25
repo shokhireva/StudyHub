@@ -44,96 +44,43 @@ export const Login: React.FC = () => {
     };
 
     return (
-        <div style={{
-            minHeight: '100vh',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            fontFamily: 'sans-serif'
-        }}>
-            <div style={{
-                background: 'white',
-                padding: '40px',
-                borderRadius: '16px',
-                boxShadow: '0 10px 40px rgba(0,0,0,0.2)',
-                maxWidth: '400px',
-                width: '100%'
-            }}>
-                <h2 style={{ textAlign: 'center', marginBottom: '24px', color: '#333' }}>Вход в StudyHub</h2>
+        <div className="app-container">
+            <div className="card" style={{ maxWidth: 400 }}>
+                <h2>Вход в StudyHub</h2>
                 <form onSubmit={handleSubmit}>
-                    <div style={{ marginBottom: '16px' }}>
-                        <label style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>Логин</label>
+                    <div className="form-group">
+                        <label>Логин</label>
                         <input
                             type="text"
                             value={login}
                             onChange={(e) => setLogin(e.target.value)}
                             required
-                            style={{
-                                width: '100%',
-                                padding: '10px',
-                                border: '1px solid #ddd',
-                                borderRadius: '8px',
-                                fontSize: '16px',
-                                boxSizing: 'border-box'
-                            }}
                         />
                     </div>
-                    <div style={{ marginBottom: '20px' }}>
-                        <label style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>Пароль</label>
-                        <div style={{ position: 'relative' }}>
+                    <div className="form-group">
+                        <label>Пароль</label>
+                        <div className="password-wrapper">
                             <input
                                 type={showPassword ? 'text' : 'password'}
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
-                                style={{
-                                    width: '100%',
-                                    padding: '10px',
-                                    border: '1px solid #ddd',
-                                    borderRadius: '8px',
-                                    fontSize: '16px',
-                                    boxSizing: 'border-box'
-                                }}
                             />
                             <button
                                 type="button"
+                                className="password-toggle"
                                 onClick={() => setShowPassword(!showPassword)}
-                                style={{
-                                    position: 'absolute',
-                                    right: '10px',
-                                    top: '50%',
-                                    transform: 'translateY(-50%)',
-                                    background: 'none',
-                                    border: 'none',
-                                    cursor: 'pointer',
-                                    fontSize: '14px',
-                                    color: '#667eea'
-                                }}
                             >
                                 {showPassword ? 'Скрыть' : 'Показать'}
                             </button>
                         </div>
                     </div>
-                    <button
-                        type="submit"
-                        style={{
-                            width: '100%',
-                            padding: '12px',
-                            background: '#667eea',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '8px',
-                            fontSize: '16px',
-                            fontWeight: 'bold',
-                            cursor: 'pointer'
-                        }}
-                    >
+                    <button type="submit" className="btn-primary" style={{ width: '100%' }}>
                         Войти
                     </button>
-                    {error && <p style={{ color: '#e74c3c', marginTop: '12px', textAlign: 'center' }}>{error}</p>}
+                    {error && <p className="error-message">{error}</p>}
                 </form>
-                <p style={{ textAlign: 'center', marginTop: '16px' }}>
+                <p className="auth-link">
                     Нет аккаунта? <Link to="/register">Зарегистрироваться</Link>
                 </p>
             </div>
