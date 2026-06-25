@@ -2,7 +2,7 @@ import React from 'react';
 import type { Student } from '../models/Student';
 import type { Group } from '../models/Group';
 import { MESSAGES } from '../constants/messages';
-import './StudentList.css';
+import '../styles/StudentList.css';
 
 interface StudentListProps {
     students: Student[];
