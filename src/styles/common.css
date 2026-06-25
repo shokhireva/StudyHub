@@ -148,13 +148,22 @@
 
 .error-message {
     color: #e74c3c;
+    background: #fde8e8;
+    padding: 10px 16px;
+    border-radius: 6px;
+    border: 1px solid #f5c6cb;
     margin-top: 12px;
     text-align: center;
     font-size: 14px;
 }
 
+
 .success-message {
     color: #27ae60;
+    background: #e8f5e9;
+    padding: 10px 16px;
+    border-radius: 6px;
+    border: 1px solid #c3e6cb;
     margin-top: 12px;
     text-align: center;
     font-size: 14px;
