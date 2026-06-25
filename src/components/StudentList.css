@@ -1,0 +1,93 @@
+.student-list-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
+.filter-bar {
+    margin-bottom: 16px;
+}
+
+.table-container {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+}
+
+.student-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+    background: white;
+    table-layout: fixed;
+}
+
+.student-table th,
+.student-table td {
+    padding: 12px 20px;
+    text-align: left;
+    border-bottom: 1px solid #f0f2f5;
+}
+
+.student-table th {
+    background: #f0f2f5;
+    font-weight: 600;
+    border-bottom: 2px solid #e8e8e8;
+}
+
+.student-table th:first-child,
+.student-table td:first-child {
+    width: 10%;
+    padding-left: 3%;
+}
+
+.student-table th:last-child,
+.student-table td:last-child {
+    width: 18%;
+}
+
+.student-table .actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-start;
+}
+
+.student-table .no-data {
+    text-align: center;
+    color: #999;
+    padding: 20px;
+}
+
+.loading {
+    text-align: center;
+    padding: 20px;
+}
+
+.error-message {
+    color: #e74c3c;
+    text-align: center;
+    padding: 20px;
+}
+
+@media (max-width: 768px) {
+    .student-table .btn-edit,
+    .student-table .btn-delete {
+        padding: 3px 8px;
+        font-size: 12px;
+        min-width: 60px;
+    }
+
+    .student-table th,
+    .student-table td {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+
+    .student-table th:last-child,
+    .student-table td:last-child {
+        width: 30%;
+    }
+}
