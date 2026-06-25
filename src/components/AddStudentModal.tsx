@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import type { Group } from '../models/Group';
+import type{ Group } from '../models/Group';
 import { studentApi } from '../api/studentApi';
 import { groupApi } from '../api/groupApi';
 import { MESSAGES } from '../constants/messages';
@@ -16,10 +16,13 @@ export const AddStudentModal: React.FC<AddStudentModalProps> = ({ isOpen, onClos
     const [patronymic, setPatronymic] = useState('');
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [groupId, setGroupId] = useState<number | ''>('');
     const [groups, setGroups] = useState<Group[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     useEffect(() => {
         if (isOpen) {
@@ -34,6 +37,17 @@ export const AddStudentModal: React.FC<AddStudentModalProps> = ({ isOpen, onClos
         setLoading(true);
         setError('');
 
+        if (password !== confirmPassword) {
+            setError(MESSAGES.errors.passwordMismatch);
+            setLoading(false);
+            return;
+        }
+        if (password.length < 6) {
+            setError(MESSAGES.errors.passwordTooShort);
+            setLoading(false);
+            return;
+        }
+
         try {
             await studentApi.create({
                 firstName,
@@ -41,7 +55,7 @@ export const AddStudentModal: React.FC<AddStudentModalProps> = ({ isOpen, onClos
                 patronymic: patronymic || undefined,
                 login,
                 password,
-                groupId: groupId === '' ? undefined : Number(groupId) 
+                groupId: groupId === '' ? undefined : Number(groupId)
             });
             onStudentAdded();
             onClose();
@@ -50,7 +64,9 @@ export const AddStudentModal: React.FC<AddStudentModalProps> = ({ isOpen, onClos
             setPatronymic('');
             setLogin('');
             setPassword('');
+            setConfirmPassword('');
             setGroupId('');
+            setError('');
         } catch (err: any) {
             setError(err.message || MESSAGES.errors.createStudent);
         } finally {
@@ -83,7 +99,39 @@ export const AddStudentModal: React.FC<AddStudentModalProps> = ({ isOpen, onClos
                     </div>
                     <div className="form-group">
                         <label>{MESSAGES.placeholders.password}</label>
-                        <input type="password" value={password} onChange={e => setPassword(e.target.value)} required />
+                        <div className="password-wrapper">
+                            <input
+                                type={showPassword ? 'text' : 'password'}
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
+                                required
+                            />
+                            <button
+                                type="button"
+                                className="password-toggle"
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                                {showPassword ? 'Скрыть' : 'Показать'}
+                            </button>
+                        </div>
+                    </div>
+                    <div className="form-group">
+                        <label>{MESSAGES.placeholders.confirmPassword}</label>
+                        <div className="password-wrapper">
+                            <input
+                                type={showConfirmPassword ? 'text' : 'password'}
+                                value={confirmPassword}
+                                onChange={e => setConfirmPassword(e.target.value)}
+                                required
+                            />
+                            <button
+                                type="button"
+                                className="password-toggle"
+                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                            >
+                                {showConfirmPassword ? 'Скрыть' : 'Показать'}
+                            </button>
+                        </div>
                     </div>
                     <div className="form-group">
                         <label>{MESSAGES.placeholders.group}</label>
