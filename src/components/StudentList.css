@@ -52,6 +52,7 @@
 .student-table .actions {
     display: flex;
     gap: 8px;
+    flex-wrap: wrap;
     justify-content: flex-start;
 }
 
@@ -73,21 +74,35 @@
 }
 
 @media (max-width: 768px) {
-    .student-table .btn-edit,
-    .student-table .btn-delete {
-        padding: 3px 8px;
-        font-size: 12px;
-        min-width: 60px;
-    }
-
     .student-table th,
     .student-table td {
-        padding: 8px 10px;
+        padding: 8px 12px;
         font-size: 14px;
     }
 
     .student-table th:last-child,
     .student-table td:last-child {
         width: 30%;
+    }
+
+    .student-table .btn-edit,
+    .student-table .btn-delete {
+        padding: 4px 10px;
+        font-size: 12px;
+        min-width: 60px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .student-table th:last-child,
+    .student-table td:last-child {
+        width: 28%;
+    }
+
+    .student-table .btn-edit,
+    .student-table .btn-delete {
+        padding: 4px 10px;
+        font-size: 13px;
+        min-width: 65px;
     }
 }
