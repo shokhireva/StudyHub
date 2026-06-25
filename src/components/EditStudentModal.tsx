@@ -1,18 +1,9 @@
 import React, { useState, useEffect } from 'react';
-
-interface Group {
-    id: number;
-    name: string;
-}
-
-interface Student {
-    id: number;
-    firstName: string;
-    lastName: string;
-    patronymic?: string;
-    login: string;
-    groupId?: number;
-}
+import type { Student } from '../models/Student';
+import type { Group } from '../models/Group';
+import { studentApi } from '../api/studentApi';
+import { groupApi } from '../api/groupApi';
+import { MESSAGES } from '../constants/messages';
 
 interface EditStudentModalProps {
     isOpen: boolean;
@@ -36,10 +27,9 @@ export const EditStudentModal: React.FC<EditStudentModalProps> = ({ isOpen, stud
             setLastName(student.lastName);
             setPatronymic(student.patronymic || '');
             setGroupId(student.groupId ?? '');
-            fetch('/api/groups')
-                .then(res => res.ok ? res.json() : Promise.reject('Ошибка загрузки групп'))
-                .then(data => setGroups(data))
-                .catch(err => setError(err));
+            groupApi.getAll()
+                .then(setGroups)
+                .catch(err => setError(err.message));
         }
     }, [isOpen, student]);
 
@@ -47,30 +37,19 @@ export const EditStudentModal: React.FC<EditStudentModalProps> = ({ isOpen, stud
         e.preventDefault();
         setLoading(true);
         setError('');
-
         if (!student) return;
 
-        const payload = {
-            firstName,
-            lastName,
-            patronymic: patronymic || undefined,
-            groupId: groupId === '' ? null : Number(groupId)
-        };
-
         try {
-            const response = await fetch(`/api/students/${student.id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
+            await studentApi.update(student.id, {
+                firstName,
+                lastName,
+                patronymic: patronymic || undefined,
+                groupId: groupId === '' ? undefined : Number(groupId)
             });
-            if (!response.ok) {
-                const data = await response.json();
-                throw new Error(data.message || 'Ошибка обновления студента');
-            }
             onStudentUpdated();
             onClose();
         } catch (err: any) {
-            setError(err.message);
+            setError(err.message || MESSAGES.errors.updateStudent);
         } finally {
             setLoading(false);
         }
@@ -81,33 +60,33 @@ export const EditStudentModal: React.FC<EditStudentModalProps> = ({ isOpen, stud
     return (
         <div className="modal-overlay">
             <div className="modal-content">
-                <h3>Редактировать студента</h3>
+                <h3>{MESSAGES.titles.editStudent}</h3>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label>Имя</label>
+                        <label>{MESSAGES.placeholders.firstName}</label>
                         <input type="text" value={firstName} onChange={e => setFirstName(e.target.value)} required />
                     </div>
                     <div className="form-group">
-                        <label>Фамилия</label>
+                        <label>{MESSAGES.placeholders.lastName}</label>
                         <input type="text" value={lastName} onChange={e => setLastName(e.target.value)} required />
                     </div>
                     <div className="form-group">
-                        <label>Отчество (опционально)</label>
+                        <label>{MESSAGES.placeholders.patronymic}</label>
                         <input type="text" value={patronymic} onChange={e => setPatronymic(e.target.value)} />
                     </div>
                     <div className="form-group">
-                        <label>Группа</label>
+                        <label>{MESSAGES.placeholders.group}</label>
                         <select value={groupId} onChange={e => setGroupId(e.target.value === '' ? '' : Number(e.target.value))}>
-                            <option value="">Без группы</option>
+                            <option value="">{MESSAGES.labels.noGroup}</option>
                             {groups.map(g => <option key={g.id} value={g.id}>{g.name}</option>)}
                         </select>
                     </div>
                     {error && <p className="error-message">{error}</p>}
                     <div className="modal-actions">
-                        <button type="button" className="btn-cancel" onClick={onClose}>Отмена</button>
                         <button type="submit" className="btn-save" disabled={loading}>
-                            {loading ? 'Сохранение...' : 'Обновить'}
+                            {loading ? MESSAGES.labels.saving : MESSAGES.labels.update}
                         </button>
+                        <button type="button" className="btn-cancel" onClick={onClose}>{MESSAGES.labels.cancel}</button>
                     </div>
                 </form>
             </div>

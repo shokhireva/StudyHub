@@ -1,88 +1,45 @@
-import React, { useEffect, useState } from 'react';
-
-export interface Student {
-    id: number;
-    firstName: string;
-    lastName: string;
-    patronymic?: string;
-    login: string;
-    groupId?: number;
-    groupName?: string;
-}
-
-interface Group {
-    id: number;
-    name: string;
-}
+import React from 'react';
+import type { Student } from '../models/Student';
+import type { Group } from '../models/Group';
+import { MESSAGES } from '../constants/messages';
+import './StudentList.css';
 
 interface StudentListProps {
-    refreshTrigger?: number;
-    onEdit?: (student: Student) => void;
-    onDelete?: (id: number) => void;
+    students: Student[];
+    groups: Group[];
+    selectedGroupId: number | '';
+    onGroupChange: (groupId: number | '') => void;
+    loading: boolean;
+    error: string;
+    onEdit: (student: Student) => void;
+    onDelete: (id: number) => void;
 }
 
-export const StudentList: React.FC<StudentListProps> = ({ refreshTrigger = 0, onEdit, onDelete }) => {
-    const [students, setStudents] = useState<Student[]>([]);
-    const [groups, setGroups] = useState<Group[]>([]);
-    const [selectedGroupId, setSelectedGroupId] = useState<number | ''>('');
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
-
-    const fetchStudents = async (groupId?: number) => {
-        setLoading(true);
-        setError('');
-        try {
-            const url = groupId ? `/api/students?groupId=${groupId}` : '/api/students';
-            const response = await fetch(url);
-            if (!response.ok) {
-                const data = await response.json();
-                throw new Error(data.message || 'Ошибка загрузки студентов');
-            }
-            const data = await response.json();
-            setStudents(data);
-        } catch (err: any) {
-            setError(err.message);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const fetchGroups = async () => {
-        try {
-            const response = await fetch('/api/groups');
-            if (!response.ok) throw new Error('Ошибка загрузки групп');
-            const data = await response.json();
-            setGroups(data);
-        } catch (err: any) {
-            console.error(err.message);
-        }
-    };
-
-    useEffect(() => {
-        fetchGroups();
-    }, []);
-
-    useEffect(() => {
-        fetchStudents(selectedGroupId || undefined);
-    }, [selectedGroupId, refreshTrigger]);
-
-    const handleGroupChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+export const StudentList: React.FC<StudentListProps> = ({
+    students,
+    groups,
+    selectedGroupId,
+    onGroupChange,
+    loading,
+    error,
+    onEdit,
+    onDelete
+}) => {
+    const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const value = e.target.value;
-        setSelectedGroupId(value === '' ? '' : Number(value));
+        onGroupChange(value === '' ? '' : Number(value));
     };
 
-    if (loading) return <div>Загрузка...</div>;
-    if (error) return <div style={{ color: 'red' }}>{error}</div>;
+    if (loading) return <div className="loading">{MESSAGES.labels.loading}</div>;
+    if (error) return <div className="error-message">{error}</div>;
 
     return (
-        <div className='student-list-container'>
-            <div style={{ marginBottom: 16 }}>
-                <label style={{ fontWeight: 500, marginRight: 8 }}>Фильтр по группе: </label>
-                <select value={selectedGroupId} onChange={handleGroupChange} style={{ padding: 6, borderRadius: 4, border: '1px solid #ccc' }}>
-                    <option value="">Все группы</option>
-                    {groups.map(group => (
-                        <option key={group.id} value={group.id}>{group.name}</option>
-                    ))}
+        <div className="student-list-container">
+            <div className="filter-bar">
+                <label>{MESSAGES.placeholders.filterByGroup}: </label>
+                <select value={selectedGroupId} onChange={handleChange}>
+                    <option value="">{MESSAGES.labels.allGroups}</option>
+                    {groups.map(g => <option key={g.id} value={g.id}>{g.name}</option>)}
                 </select>
             </div>
             <div className="table-container">
@@ -91,25 +48,25 @@ export const StudentList: React.FC<StudentListProps> = ({ refreshTrigger = 0, on
                         <tr>
                             <th>ID</th>
                             <th>ФИО</th>
-                            <th>Логин</th>
-                            <th>Группа</th>
-                            <th>Действия</th>
+                            <th>{MESSAGES.placeholders.login}</th>
+                            <th>{MESSAGES.placeholders.group}</th>
+                            <th>{MESSAGES.labels.actions}</th>
                         </tr>
                     </thead>
                     <tbody>
                         {students.length === 0 ? (
-                            <tr><td colSpan={5} className="no-data">Студентов не найдено</td></tr>
+                            <tr><td colSpan={5} className="no-data">{MESSAGES.labels.noData}</td></tr>
                         ) : (
                             students.map(student => (
                                 <tr key={student.id}>
                                     <td>{student.id}</td>
                                     <td>{[student.lastName, student.firstName, student.patronymic].filter(Boolean).join(' ')}</td>
                                     <td>{student.login}</td>
-                                    <td>{student.groupName || 'Без группы'}</td>
+                                    <td>{student.groupName || MESSAGES.labels.noGroup}</td>
                                     <td>
                                         <div className="actions">
-                                            {onEdit && <button className="btn-primary" onClick={() => onEdit(student)}>Редактировать</button>}
-                                            {onDelete && <button className="btn-danger" onClick={() => onDelete(student.id)}>Удалить</button>}
+                                            <button className="btn-edit" onClick={() => onEdit(student)}>{MESSAGES.labels.editStudent}</button>
+                                            <button className="btn-delete" onClick={() => onDelete(student.id)}>{MESSAGES.labels.deleteStudent}</button>
                                         </div>
                                     </td>
                                 </tr>
