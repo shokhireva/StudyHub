@@ -1,12 +1,5 @@
 import { MESSAGES } from '../constants/messages';
-
-export interface Quiz {
-    id: number;
-    title: string;
-    durationMinutes: number;
-    isOneTime: boolean;
-    courseId: number;
-}
+import type { Quiz } from '../models/Quiz';
 
 export const quizApi = {
     getAll: async (): Promise<Quiz[]> => {

@@ -3,7 +3,7 @@ import { QuestionList } from './QuestionList';
 import { AddQuestionModal } from './AddQuestionModal';
 import { EditQuestionModal } from './EditQuestionModal';
 import { questionApi } from '../api/questionApi';
-import type { Question } from '../api/questionApi';
+import type { Question } from '../models/Question'
 import { MESSAGES } from '../constants/messages';
 
 export const QuestionManagement: React.FC = () => {

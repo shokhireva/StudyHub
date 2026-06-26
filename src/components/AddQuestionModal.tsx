@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { questionApi } from '../api/questionApi';
 import { quizApi } from '../api/quizApi';
-import type { Quiz } from '../api/quizApi';
+import type { Quiz } from '../models/Quiz'
 import { MESSAGES } from '../constants/messages';
 import '../styles/QuestionModal.css';
 

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { questionApi } from '../api/questionApi';
 import { quizApi } from '../api/quizApi';
-import type { Quiz } from '../api/quizApi';
-import type { Question } from '../api/questionApi';
+import type { Quiz } from '../models/Quiz'
+import type { Question } from '../models/Question'
 import { MESSAGES } from '../constants/messages';
 import '../styles/QuestionModal.css';
 

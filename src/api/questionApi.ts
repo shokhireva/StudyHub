@@ -1,18 +1,5 @@
 import { MESSAGES } from '../constants/messages';
-
-export interface AnswerOption {
-    id?: number;
-    text: string;
-    isCorrect: boolean;
-}
-
-export interface Question {
-    id: number;
-    text: string;
-    type: number; 
-    quizId: number;
-    options: AnswerOption[];
-}
+import type { Question }from '../models/Question';
 
 export const questionApi = {
     getAll: async (): Promise<Question[]> => {

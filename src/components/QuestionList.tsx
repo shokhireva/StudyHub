@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Question } from '../api/questionApi';
+import type { Question } from '../models/Question'
 import { MESSAGES } from '../constants/messages';
 import '../styles/QuestionList.css';
 
