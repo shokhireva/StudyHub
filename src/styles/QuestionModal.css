@@ -1,0 +1,35 @@
+
+.option-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+    align-items: center;
+}
+
+
+.option-input {
+    flex: 1;
+}
+
+
+.option-correct-label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.option-remove-btn {
+    padding: 4px 8px;
+}
+
+
+.modal-content textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+    font-family: inherit;
+    resize: vertical;
+}
