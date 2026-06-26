@@ -28,6 +28,8 @@ export const TeacherDashboard: React.FC = () => {
                     <button className={location.pathname.includes('/admin/groups') ? 'active' : ''} onClick={() => navigate('/admin/groups')}>Группы</button>
                     <button className={location.pathname.includes('/admin/courses') ? 'active' : ''} onClick={() => navigate('/admin/courses')}>Курсы</button>
                     <button className={location.pathname.includes('/admin/students') ? 'active' : ''} onClick={() => navigate('/admin/students')}>Студенты</button>
+                    <button className={location.pathname.includes('/admin/quizzes') ? 'active' : ''} onClick={() => navigate('/admin/quizzes')}>Квизы</button>
+                    <button className={location.pathname.includes('/admin/questions') ? 'active' : ''} onClick={() => navigate('/admin/questions')}>Вопросы</button>
                 </nav>
 
                 <div className="dashboard-content">

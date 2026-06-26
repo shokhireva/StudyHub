@@ -8,6 +8,8 @@ import { StudentDashboard } from './components/StudentDashboard';
 import { StudentManagement } from './components/StudentManagement';
 import { GroupManagement } from './components/GroupManagement';
 import { CourseManagement } from './components/CourseManagement';
+import { QuizManagement } from './components/QuizManagement';
+import { QuestionManagement } from './components/QuestionManagement';
 import './App.css';
 import './styles/common.css';
 
@@ -23,6 +25,8 @@ export const App: React.FC = () => {
                         <Route path="groups" element={<GroupManagement />} />
                         <Route path="courses" element={<CourseManagement />} />
                         <Route path="students" element={<StudentManagement />} />
+                        <Route path="quizzes" element={<QuizManagement />} />
+                        <Route path="questions" element={<QuestionManagement />} />
                     </Route>
                 </Route>
                 <Route element={<RequireAuth allowedRoles={['Student']} />}>
