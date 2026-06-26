@@ -17,7 +17,9 @@ public class UserRepository : BaseRepository, IUserRepository
 
     public async Task<IEnumerable<User>> GetStudentsAsync(int? groupId = null)
     {
-        IQueryable<User> query = _context.Users.Where(u => u.Role == UserRole.Student);
+        IQueryable<User> query = _context.Users
+            .Include(u => u.Group)
+            .Where(u => u.Role == UserRole.Student);
         if (groupId.HasValue)
             query = query.Where(u => u.GroupId == groupId.Value);
         return await query.ToListAsync();
