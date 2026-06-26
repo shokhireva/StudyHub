@@ -1,0 +1,61 @@
+.course-list-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
+.course-list-container .table-container {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+}
+
+.course-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+    background: white;
+    table-layout: fixed;
+}
+
+.course-table th,
+.course-table td {
+    padding: 12px 20px;
+    text-align: left;
+    border-bottom: 1px solid #f0f2f5;
+}
+
+.course-table th {
+    background: #f0f2f5;
+    font-weight: 600;
+    border-bottom: 2px solid #e8e8e8;
+}
+
+.course-table th:first-child,
+.course-table td:first-child {
+    width: 8%;
+    text-align: left;
+    padding-left: 20px;
+}
+
+.course-table th:last-child,
+.course-table td:last-child {
+    width: 22%;
+    text-align: left;
+}
+
+.course-table .actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.course-table .no-data {
+    text-align: center;
+    color: #999;
+    padding: 20px;
+}
