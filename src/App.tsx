@@ -6,6 +6,8 @@ import { RequireAuth } from './components/RequireAuth';
 import { TeacherDashboard } from './components/TeacherDashboard';
 import { StudentDashboard } from './components/StudentDashboard';
 import { StudentManagement } from './components/StudentManagement';
+import { GroupManagement } from './components/GroupManagement';
+import { CourseManagement } from './components/CourseManagement';
 import './App.css';
 import './styles/common.css';
 
@@ -17,10 +19,10 @@ export const App: React.FC = () => {
                 <Route path="/register" element={<Register />} />
                 <Route element={<RequireAuth allowedRoles={['Teacher']} />}>
                     <Route path="/admin" element={<TeacherDashboard />}>
-                        <Route path="groups" element={<div>Группы (заглушка)</div>} />
-                        <Route path="courses" element={<div>Курсы (заглушка)</div>} />
-                        <Route path="students" element={<StudentManagement />} />
                         <Route index element={<Navigate to="students" replace />} />
+                        <Route path="groups" element={<GroupManagement />} />
+                        <Route path="courses" element={<CourseManagement />} />
+                        <Route path="students" element={<StudentManagement />} />
                     </Route>
                 </Route>
                 <Route element={<RequireAuth allowedRoles={['Student']} />}>
