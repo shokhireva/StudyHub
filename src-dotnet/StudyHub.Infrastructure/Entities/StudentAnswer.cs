@@ -1,5 +1,3 @@
-using StudyHub.Domain.Enums;
-
 namespace StudyHub.Infrastructure.Entities;
 
 public class StudentAnswer
@@ -10,5 +8,5 @@ public class StudentAnswer
     public int QuestionId { get; set; }
     public Question Question { get; set; } = null!;
     public string? AnswerText { get; set; }
-    public int? SelectedOptionId { get; set; }
+    public ICollection<StudentSelectedOption> SelectedOptions { get; set; } = new List<StudentSelectedOption>();
 }

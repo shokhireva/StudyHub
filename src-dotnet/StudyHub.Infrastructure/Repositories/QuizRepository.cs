@@ -22,6 +22,14 @@ public class QuizRepository : BaseRepository, IQuizRepository
             .Include(q => q.Questions)
             .FirstOrDefaultAsync(q => q.Id == id);
     }
+    
+    public async Task<Quiz?> GetWithQuestionsAsync(int id)
+    {
+        return await _context.Quizzes
+            .Include(quiz => quiz.Questions)
+                .ThenInclude(question => question.Options)
+            .FirstOrDefaultAsync(quiz => quiz.Id == id);
+    }
 
     public async Task AddAsync(Quiz quiz)
     {

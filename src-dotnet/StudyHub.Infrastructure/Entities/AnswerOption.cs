@@ -9,4 +9,5 @@ public class AnswerOption
     public bool IsCorrect { get; set; }
     public int QuestionId { get; set; }
     public Question Question { get; set; } = null!;
+    public ICollection<StudentSelectedOption> StudentSelectedOptions { get; set; } = new List<StudentSelectedOption>();
 }
