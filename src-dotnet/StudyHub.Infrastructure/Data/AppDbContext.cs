@@ -16,6 +16,7 @@ public class AppDbContext : DbContext
     public DbSet<AnswerOption> AnswerOptions { get; set; }
     public DbSet<StudentTask> StudentTasks { get; set; }
     public DbSet<StudentAnswer> StudentAnswers { get; set; }
+    public DbSet<StudentSelectedOption> StudentSelectedOptions { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -77,6 +78,17 @@ public class AppDbContext : DbContext
             .HasOne(sa => sa.Question)
             .WithMany(q => q.StudentAnswers)
             .HasForeignKey(sa => sa.QuestionId)
+            .OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<StudentSelectedOption>()
+            .HasOne(selected => selected.StudentAnswer)
+            .WithMany(answer => answer.SelectedOptions)
+            .HasForeignKey(selected => selected.StudentAnswerId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<StudentSelectedOption>()
+            .HasOne(selected => selected.AnswerOption)
+            .WithMany(option => option.StudentSelectedOptions)
+            .HasForeignKey(selected => selected.AnswerOptionId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }
