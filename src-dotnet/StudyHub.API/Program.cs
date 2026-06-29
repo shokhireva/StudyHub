@@ -41,6 +41,11 @@ builder.Services.AddScoped<IQuizRepository, QuizRepository>();
 builder.Services.AddScoped<IQuizService, QuizService>();
 builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 builder.Services.AddScoped<IQuestionService, QuestionService>();
+builder.Services.AddScoped<IStudentAnswerRepository, StudentAnswerRepository>();
+builder.Services.AddScoped<IStudentSelectedOptionRepository, StudentSelectedOptionRepository>();
+builder.Services.AddScoped<IStudentTaskRepository, StudentTaskRepository>();
+builder.Services.AddScoped<IStudentTaskService, StudentTaskService>();
+
 
 WebApplication app = builder.Build();
 
