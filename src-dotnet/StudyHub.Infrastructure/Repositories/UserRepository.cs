@@ -49,4 +49,11 @@ public class UserRepository : BaseRepository, IUserRepository
     {
         await _context.SaveChangesAsync();
     }
+
+    public async Task<IEnumerable<User>> GetByGroupIdAsync(int groupId)
+    {
+        return await _context.Users
+            .Where(user => user.GroupId == groupId)
+            .ToListAsync();
+    }
 }
